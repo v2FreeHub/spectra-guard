@@ -29,10 +29,14 @@ jobs:
     - name: Build APK with Gradle
       run: ./gradlew assembleDebug --no-daemon
 
-    - name: Upload All APKs Found
+    - name: Move and Rename APK for Upload
+      run: |
+        mkdir -p ./final-apk
+        find . -name "*.apk" -exec cp {} ./final-apk/ \;
+        ls -la ./final-apk
+
+    - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: SpectraGuard-APK-Bundle
-        path: |
-          **/*.apk
-          !**/build-cache/**
+        name: SpectraGuard-Final-APK
+        path: ./final-apk/*.apk
