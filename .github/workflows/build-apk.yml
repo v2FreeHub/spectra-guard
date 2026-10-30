@@ -24,12 +24,11 @@ jobs:
     - name: Grant Execute Permission for GradleW
       run: chmod +x gradlew || true
 
-    - name: Build APK with Gradle
-      run: ./gradlew assembleDebug --no-daemon
+    - name: Clean and Build APK
+      run: ./gradlew clean assembleDebug --no-daemon
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: SpectraGuard-Debug-APK
         path: app/build/outputs/apk/debug/app-debug.apk
-        
